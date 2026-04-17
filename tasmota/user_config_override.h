@@ -16,4 +16,12 @@
 #endif
 #define USE_SDCARD
 
+#ifndef USE_UFILESYS
+#define USE_UFILESYS
+#endif
+
+#ifndef SDC_CS
+#define SDC_CS 5
+#endif
+
 #endif
