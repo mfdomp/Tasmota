@@ -1,0 +1,29 @@
+name: Build Custom Tasmota32
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install PlatformIO
+        run: pip install platformio
+
+      - name: Build tasmota32
+        run: platformio run -e tasmota32
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v3
+        with:
+          name: tasmota32-custom
+          path: build_output/firmware/tasmota32.bin
