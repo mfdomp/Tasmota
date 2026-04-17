@@ -20,8 +20,8 @@ jobs:
         run: pip install platformio
 
       - name: Build tasmota32
-        run: platformio run -e tasmota32
-
+        run: platformio run -e tasmota32-custom
+        
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
