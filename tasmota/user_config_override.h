@@ -24,10 +24,21 @@
 #define SDC_CS 5
 #endif
 
-// Modo AP permanente
-#define USE_ALWAYS_AP
-#define WIFI_CONFIG_TOOL    WIFI_MANAGER
-#define WIFI_SCAN_AT_RESTART false
-#define WIFI_SCAN_REGULARLY  false
+// WiFi: tenta conectar, falha silenciosamente e mantém AP ativo
+#ifdef WIFI_CONFIG_TOOL
+#undef WIFI_CONFIG_TOOL
+#endif
+#define WIFI_CONFIG_TOOL WIFI_RETRY
+
+// SSID fictício para evitar WiFi Manager
+#ifdef STA_SSID1
+#undef STA_SSID1
+#endif
+#define STA_SSID1 "co2sensor-ap"
+
+#ifdef STA_PASS1
+#undef STA_PASS1
+#endif
+#define STA_PASS1 "co2sensor"
 
 #endif
