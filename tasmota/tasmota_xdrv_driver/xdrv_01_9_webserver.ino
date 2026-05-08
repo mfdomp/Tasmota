@@ -1426,7 +1426,7 @@ void HandleRoot(void) {
     WebRestart(0);
     return;
   }
-
+#ifndef USE_ALWAYS_AP
   if (WifiIsInManagerMode()) {
 #ifndef FIRMWARE_MINIMAL
     if (strlen(SettingsText(SET_WEBPWD)) && 
@@ -1448,7 +1448,7 @@ void HandleRoot(void) {
 #endif  // Not FIRMWARE_MINIMAL
     return;
   }
-
+#endif  // USE_ALWAYS_AP
   if (HandleRootStatusRefresh()) {
     return;
   }
