@@ -735,7 +735,21 @@ void WifiManagerBegin(bool reset_only) {
     WifiSetMode(WIFI_AP);
     AddLog(LOG_LEVEL_DEBUG, PSTR(D_LOG_WIFI D_WIFIMANAGER_SET_ACCESSPOINT));
   }
+ 
+#ifdef USE_ALWAYS_AP
+  if (!Web.initial_config) { AddLog(LOG_LEVEL_INFO, PSTR(D_LOG_WIFI D_WCFG_2_WIFIMANAGER " active permanently")); }
+#else
+  if (!Web.initial_config) { AddLog(LOG_LEVEL_INFO, PSTR(D_LOG_WIFI D_WCFG_2_WIFIMANAGER " " D_ACTIVE_FOR_3_MINUTES)); }
+#endif
+  if (!TasmotaGlobal.global_state.wifi_down) {
+    WifiSetMode(WIFI_AP_STA);
+    AddLog(LOG_LEVEL_DEBUG, PSTR(D_LOG_WIFI D_WIFIMANAGER_SET_ACCESSPOINT_AND_STATION));
+  } else {
+    WifiSetMode(WIFI_AP);
+    AddLog(LOG_LEVEL_DEBUG, PSTR(D_LOG_WIFI D_WIFIMANAGER_SET_ACCESSPOINT));
+  }
 
+  
   //StopWebserver();
 
   DnsServer = new DNSServer();
