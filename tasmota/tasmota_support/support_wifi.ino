@@ -36,7 +36,11 @@
 #define WIFI_RETRY_SECONDS      20         // Number of seconds connection to wifi network will retry
 #endif
 
+#ifdef USE_ALWAYS_AP
+const uint16_t WIFI_CONFIG_SEC = 65535;    // Never timeout in AP mode
+#else
 const uint8_t WIFI_CONFIG_SEC = 180;       // seconds before restart
+#endif
 const uint8_t WIFI_CHECK_SEC = 20;         // seconds
 const uint8_t WIFI_RETRY_OFFSET_SEC = WIFI_RETRY_SECONDS;  // seconds
 
