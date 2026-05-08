@@ -24,15 +24,10 @@
 #define SDC_CS 5
 #endif
 
-// Modo AP padrão quando sem WiFi configurado
-#ifdef WIFI_CONFIG_TOOL
-#undef WIFI_CONFIG_TOOL
-#endif
-#define WIFI_CONFIG_TOOL WIFI_MANAGER
-
-// Desativa tentativas de conexão indefinidas
-#ifdef WIFI_CONFIG_NO_MQTT
-#undef WIFI_CONFIG_NO_MQTT
-#endif
+// Modo AP permanente
+#define USE_ALWAYS_AP
+#define WIFI_CONFIG_TOOL    WIFI_MANAGER
+#define WIFI_SCAN_AT_RESTART false
+#define WIFI_SCAN_REGULARLY  false
 
 #endif
