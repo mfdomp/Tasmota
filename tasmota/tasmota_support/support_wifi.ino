@@ -1294,10 +1294,15 @@ void WifiCheck(uint8_t param)
     if (Wifi.config_counter) {
       Wifi.config_counter--;
       Wifi.counter = Wifi.config_counter +5;
-      if (!Wifi.config_counter) {
+     if (!Wifi.config_counter) {
+#ifndef USE_ALWAYS_AP
 //        SettingsSdkErase();  //  Disabled v6.1.0b due to possible bad wifi connects
-        TasmotaGlobal.restart_flag = 2;
-      }
+    TasmotaGlobal.restart_flag = 2;
+#else
+    Wifi.config_counter = WIFI_CONFIG_SEC;  // Reset counter, never restart
+#endif
+  }
+}
     } else {
       if (Wifi.counter <= 0) {
         WifiCheckIp();
