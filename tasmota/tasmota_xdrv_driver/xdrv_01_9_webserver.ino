@@ -724,18 +724,8 @@ void WebserverStartSocket(void) {
 }
 
 /*-------------------------------------------------------------------------------------------*/
-
 void WifiManagerBegin(bool reset_only) {
   // setup AP
-  if (!Web.initial_config) { AddLog(LOG_LEVEL_INFO, PSTR(D_LOG_WIFI D_WCFG_2_WIFIMANAGER " " D_ACTIVE_FOR_3_MINUTES)); }
-  if (!TasmotaGlobal.global_state.wifi_down) {
-    WifiSetMode(WIFI_AP_STA);
-    AddLog(LOG_LEVEL_DEBUG, PSTR(D_LOG_WIFI D_WIFIMANAGER_SET_ACCESSPOINT_AND_STATION));
-  } else {
-    WifiSetMode(WIFI_AP);
-    AddLog(LOG_LEVEL_DEBUG, PSTR(D_LOG_WIFI D_WIFIMANAGER_SET_ACCESSPOINT));
-  }
- 
 #ifdef USE_ALWAYS_AP
   if (!Web.initial_config) { AddLog(LOG_LEVEL_INFO, PSTR(D_LOG_WIFI D_WCFG_2_WIFIMANAGER " active permanently")); }
 #else
@@ -748,23 +738,19 @@ void WifiManagerBegin(bool reset_only) {
     WifiSetMode(WIFI_AP);
     AddLog(LOG_LEVEL_DEBUG, PSTR(D_LOG_WIFI D_WIFIMANAGER_SET_ACCESSPOINT));
   }
-
-  
   //StopWebserver();
-
   DnsServer = new DNSServer();
-
   int channel = WIFI_SOFT_AP_CHANNEL;
   if ((channel < 1) || (channel > 13)) { channel = 1; }
-
-  // bool softAP(const char* ssid, const char* passphrase = NULL, int channel = 1, int ssid_hidden = 0, int max_connection = 4);
   WiFi.softAP(TasmotaGlobal.hostname, WIFI_AP_PASSPHRASE, channel, 0, 1);
-  delay(500); // Without delay I've seen the IP address blank
-  /* Setup the DNS server redirecting all the domains to the apIP */
+  delay(500);
+#ifndef USE_ALWAYS_AP
   DnsServer->setErrorReplyCode(DNSReplyCode::NoError);
   DnsServer->start(DNS_PORT, "*", WiFi.softAPIP());
-
   StartWebserver((reset_only ? HTTP_MANAGER_RESET_ONLY : HTTP_MANAGER));
+#else
+  StartWebserver(HTTP_ADMIN);
+#endif
 }
 
 /*-------------------------------------------------------------------------------------------*/
