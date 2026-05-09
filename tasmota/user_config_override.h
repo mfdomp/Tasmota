@@ -24,6 +24,11 @@
 #define SDC_CS 5
 #endif
 
+// Manter AP ativo permanentemente, sem restart por timeout
+#ifndef USE_ALWAYS_AP
+#define USE_ALWAYS_AP
+#endif
+
 // WiFi: tenta conectar, falha silenciosamente e mantém AP ativo
 #ifdef WIFI_CONFIG_TOOL
 #undef WIFI_CONFIG_TOOL
