@@ -742,7 +742,11 @@ void WifiManagerBegin(bool reset_only) {
   DnsServer = new DNSServer();
   int channel = WIFI_SOFT_AP_CHANNEL;
   if ((channel < 1) || (channel > 13)) { channel = 1; }
+#ifdef USE_ALWAYS_AP
+  WiFi.softAP(TasmotaGlobal.hostname, strlen(SettingsText(SET_WEBPWD)) ? SettingsText(SET_WEBPWD) : WIFI_AP_PASSPHRASE, channel, 0, 1);
+#else
   WiFi.softAP(TasmotaGlobal.hostname, WIFI_AP_PASSPHRASE, channel, 0, 1);
+#endif
   delay(500);
 #ifndef USE_ALWAYS_AP
   DnsServer->setErrorReplyCode(DNSReplyCode::NoError);
