@@ -29,21 +29,14 @@
 #define USE_ALWAYS_AP
 #endif
 
+#define STA_SSID1 "co2sensor-offline"
+#define STA_PASS1 "co2sensor"
+#define WIFI_AP_PASSPHRASE ""
+
 // WiFi: tenta conectar, falha silenciosamente e mantém AP ativo
 #ifdef WIFI_CONFIG_TOOL
 #undef WIFI_CONFIG_TOOL
 #endif
 #define WIFI_CONFIG_TOOL WIFI_RETRY
-
-// SSID fictício para evitar WiFi Manager
-#ifdef STA_SSID1
-#undef STA_SSID1
-#endif
-#define STA_SSID1 "co2sensor-ap"
-
-#ifdef STA_PASS1
-#undef STA_PASS1
-#endif
-#define STA_PASS1 "co2sensor"
 
 #endif
