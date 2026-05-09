@@ -31,7 +31,6 @@
 
 #define STA_SSID1 "co2sensor-offline"
 #define STA_PASS1 "co2sensor"
-#define WIFI_AP_PASSPHRASE ""
 
 // WiFi: tenta conectar, falha silenciosamente e mantém AP ativo
 #ifdef WIFI_CONFIG_TOOL
