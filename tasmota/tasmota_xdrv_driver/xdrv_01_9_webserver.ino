@@ -748,12 +748,12 @@ void WifiManagerBegin(bool reset_only) {
   WiFi.softAP(TasmotaGlobal.hostname, WIFI_AP_PASSPHRASE, channel, 0, 1);
 #endif
   delay(500);
-#ifndef USE_ALWAYS_AP
   DnsServer->setErrorReplyCode(DNSReplyCode::NoError);
   DnsServer->start(DNS_PORT, "*", WiFi.softAPIP());
-  StartWebserver((reset_only ? HTTP_MANAGER_RESET_ONLY : HTTP_MANAGER));
-#else
+#ifdef USE_ALWAYS_AP
   StartWebserver(HTTP_ADMIN);
+#else
+  StartWebserver((reset_only ? HTTP_MANAGER_RESET_ONLY : HTTP_MANAGER));
 #endif
 }
 
