@@ -37,6 +37,6 @@
 #ifdef WIFI_CONFIG_TOOL
 #undef WIFI_CONFIG_TOOL
 #endif
-i#define WIFI_CONFIG_TOOL WIFI_RETRY
+#define WIFI_CONFIG_TOOL WIFI_RETRY
 
 #endif
