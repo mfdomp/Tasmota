@@ -219,7 +219,7 @@ void Scd40Update(void)
       AddLog(LOG_LEVEL_INFO, PSTR("SCD: Not answering, sending soft reset, counter: %ld"), scd40Loop_count);
 #endif
       scd40Reset_count++;
-      error = scd40.stopPeriodicMeasurement();
+      error = scd40.forceStopPeriodicMeasurement();
       if (error) {
         scd40ErrorState = SCD40_STATE_ERROR_SOFT_RESET;
 #ifdef SCD40_DEBUG
@@ -393,7 +393,7 @@ bool Scd40CommandSensor()
 
       case CMND_SCD40_STOP_MEASUREMENT:
       {
-        error = scd40.stopPeriodicMeasurement();
+        error = scd40.forceStopPeriodicMeasurement();
         Response_P(S_JSON_SCD40_COMMAND_NVALUE, command, error?-1:0);
       }
       break;
